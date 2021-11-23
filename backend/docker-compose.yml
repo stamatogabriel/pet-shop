@@ -1,0 +1,50 @@
+
+  
+version: "3"
+
+services: 
+  app:
+    build: .
+    container_name: backend
+    restart: always
+    tty: true
+    networks: 
+      - backend_bridge
+    ports: 
+      - 9000:3000
+    volumes: 
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on: 
+      - db
+
+  db:
+    image: mongo:latest
+    container_name: backend_db
+    restart: always
+    networks:
+      - backend_bridge
+    volumes:
+      - ./db-mongo:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: backend_db
+    
+  admin:
+    image: mongo-express
+    container_name: backend_admin
+    restart: always
+    networks:
+      - backend_bridge
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      ME_CONFIG_MONGODB_SERVER: db
+      ME_CONFIG_OPTIONS_EDITORTHEME: dracula
+
+networks: 
+  backend_bridge:
+    driver: bridge
