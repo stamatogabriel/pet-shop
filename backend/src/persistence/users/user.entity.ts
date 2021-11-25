@@ -10,21 +10,21 @@ export const UserSchema = new Schema(
     email: { type: String, required: true, unique: true },
     phone: { type: String },
     avatar: { type: String },
-    roles: [{type: String, required: true, enum: Role }],
+    roles: [{ type: String, required: true, enum: Role }],
     password: { type: String, required: true, select: false },
     passwordResetToken: { type: String, default: null, select: false },
     passwordResetExpires: { type: Date, default: null, select: false },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 UserSchema.pre<IUserEntity>(['save'], function (next) {
   if (this.password) {
     const hashPassword = HmacSHA512(
       this.password,
-      process.env.PASSWORD_SALT
+      process.env.PASSWORD_SALT,
     ).toString();
 
     this.password = hashPassword;
@@ -32,4 +32,4 @@ UserSchema.pre<IUserEntity>(['save'], function (next) {
   next();
 });
 
-export interface IUserEntity extends Omit<User, '_id'>, Document {}
+export interface IUserEntity extends Omit<User, '_id'>, Document { }
