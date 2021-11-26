@@ -9,6 +9,9 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { ApiModule } from './api/api.module';
 import { AuthModule } from './auth/auth.module';
 
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -49,7 +52,7 @@ import { AuthModule } from './auth/auth.module';
     ApiModule,
     AuthModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
