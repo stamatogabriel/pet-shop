@@ -6,7 +6,9 @@ import { urlencoded } from 'body-parser';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
+
+  app.enableCors();
 
   app.setGlobalPrefix('api/v1');
 
@@ -22,4 +24,4 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT || 3000);
 }
-bootstrap();
+bootstrap()
