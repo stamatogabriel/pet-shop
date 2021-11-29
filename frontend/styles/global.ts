@@ -4,8 +4,8 @@ export const theme = {
   colors: {
     primary: '#fbfbfb',
     secondary: {
-      main: '#027A00',
-      dark: '#013B00',
+      main: '#ff6600',
+      dark: '#ff4400',
     },
     error: '#c53030',
     white: {
@@ -23,7 +23,7 @@ export const theme = {
   },
 }
 
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
 *,
 *::before,
 *::after {
@@ -59,6 +59,9 @@ textarea:focus, input:focus, select:focus {
     border: 0 none;
     outline: 0;
 }
+button{
+  cursor: pointer;
+}
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -73,3 +76,5 @@ textarea:focus, input:focus, select:focus {
   background: #333;
 }
 `
+
+export default GlobalStyle

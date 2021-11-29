@@ -6,9 +6,11 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 
-import { GlobalStyle, theme } from '../styles/global'
+import GlobalStyle, { theme } from '../styles/global'
 
 import { persistor, store } from '../store'
+import Header from '../components/header'
+import CookieBar from '../components/cookie_bar'
 
 Router.events.on('routeChangeStart', () => {
   NProgress.start()
@@ -33,7 +35,9 @@ function MyApp({ Component, pageProps }): JSX.Element {
         </Head>
         <GlobalStyle />
         <ThemeProvider theme={theme}>
+          <Header />
           <Component {...pageProps} />
+          <CookieBar />
         </ThemeProvider>
       </PersistGate>
     </Provider>

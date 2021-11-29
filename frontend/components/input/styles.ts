@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { theme } from '../styles/global'
+import { theme } from '../../styles/global'
 import Tooltip from '../tooltip'
 
 interface ContainerProps {

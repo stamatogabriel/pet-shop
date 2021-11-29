@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Necessários",
+    "description": "Os cookies necessários são absolutamente essenciais para o funcionamento adequado do site. Esses cookies garantem funcionalidades básicas e recursos de segurança do site, de forma  anônima.",
+    "key": "needed"
+  },
+  {
+    "title": "Marketing",
+    "description": "Os cookies de marketing ajudam a personalizar anúncios com base nos interesses dos usuários que são inferidos a partir do padrão de navegação.",
+    "key": "marketing"
+  },
+  {
+    "title": "Estatísticos",
+    "description": "Os cookies estatísticos são aqueles que permitem quantificar o numero de visitantes e fazer uma analise estatística sobre usuários e serviços. Desta forma, os estudos e a navegação do site melhoraram o suprimento dos produtos ou serviços ofertados.",
+    "key": "analyticals"
+  },
+  {
+    "title": "Funcionais",
+    "description": "Os cookies funcionais ajudam a executar certas funcionalidades, como compartilhar o conteúdo do site em plataformas de mídia social, coletar feedbacks e outros recursos de terceiros.",
+    "key": "functionals"
+  }
+]

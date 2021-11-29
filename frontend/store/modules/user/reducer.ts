@@ -11,7 +11,7 @@ const INITIAL_STATE: UserState = {
 const reducer: Reducer<UserState> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case AuthTypes.SIGN_IN_SUCCESS:
-      return { ...state, profile: action.payload.user }
+      return { ...state, profile: action.payload.profile }
 
     default:
       return state

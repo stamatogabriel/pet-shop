@@ -3,6 +3,8 @@ import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as Yup from 'yup'
 
+import { FiMail, FiLock } from 'react-icons/fi'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { signFailure, signInRequest } from '../../store/modules/auth/actions'
 
@@ -51,8 +53,8 @@ const Login: React.FC = () => {
       <LoginWrapper>
         <h1>Faça seu login</h1>
         <Form ref={formRef} onSubmit={handleLogin} autoComplete="false">
-          <Input name="email" placeholder="E-mail" />
-          <Input name="password" placeholder="Senha" type="password" />
+          <Input name="email" placeholder="E-mail" icon={FiMail} />
+          <Input name="password" placeholder="Senha" type="password" icon={FiLock} />
           <button type="submit" disabled={loading}>
             {loading ? 'Carregando' : 'Entrar'}
           </button>
