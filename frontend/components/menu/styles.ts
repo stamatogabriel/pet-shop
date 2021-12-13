@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { theme } from '../../styles/global'
 
 interface CheckProps {
   checked?: boolean
@@ -48,6 +49,18 @@ export const Wrapper = styled.div`
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
+
+  h3 {
+    margin: 1rem auto 0.5rem;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  a {
+    margin: 0 auto;
+    font-size: 1rem;
+    line-height: 1.75rem;
+  }
 `
 
 export const ModalHeader = styled.div`
@@ -66,20 +79,46 @@ export const ModalHeader = styled.div`
   }
 `
 
-export const BackButton = styled.button`
-  background: transparent;
-  border: none;
-  margin: 0 auto 0 0;
-
+export const Avatar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 
-  font-size: 0.875rem;
-  line-height: 1rem;
-  font-weight: 700;
+  margin: 1rem auto;
+
+  width: 10rem;
+  height: 10rem;
+
+  border: 5px solid ${theme.colors.secondary.main};
+  border-radius: 50%;
+
+  transition: background-color 0.5s;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+
+    transition: opacity 0.5s;
+    object-fit: cover;
+
+    // border: 2px solid ${theme.colors.secondary.main};
+  }
 
   svg {
-    margin-right: 0.4rem;
+    position: absolute;
+    visibility: hidden;
+    transition: visibility 0.3s;
+  }
+
+  &:hover {
+    background-color: ${theme.colors.secondary.main};
+    img {
+      opacity: 0.3;
+    }
+    svg {
+      visibility: visible;
+    }
   }
 `
