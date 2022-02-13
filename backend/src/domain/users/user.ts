@@ -10,7 +10,7 @@ interface Address {
   neighborhood: string;
   city: string;
   state: string;
-} 
+}
 
 export type User = {
   _id?: string;

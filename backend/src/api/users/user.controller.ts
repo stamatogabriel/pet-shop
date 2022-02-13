@@ -7,11 +7,13 @@ import {
   Put,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiQuery } from '@nestjs/swagger';
 
 import { CreateUserDTO } from './dto/create.dto';
 import { UpdateUserDto } from './dto/update.dto';
+import { IQuery } from '../../common/interfaces/query';
 
 import { UserCreateService } from '../../domain/users/user_create';
 import { UserIndexService } from '../../domain/users/user_index';
@@ -42,9 +44,14 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
+  @ApiQuery({ name: 'type', type: String, required: false })
+  @ApiQuery({ name: 'page', type: Number, required: false })
+  @ApiQuery({ name: 'limit', type: Number, required: false })
+  @ApiQuery({ name: 'startDate', type: Date, required: false })
+  @ApiQuery({ name: 'endDate', type: Date, required: false })
   @Get()
-  public async index() {
-    return this.indexUser.index();
+  public async index(@Query() query: IQuery) {
+    return this.indexUser.index(query);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -51,7 +51,7 @@ export class ProductController {
   @ApiQuery({ name: 'startDate', type: Date, required: false })
   @ApiQuery({ name: 'endDate', type: Date, required: false })
   @Get()
-  public async index(@Query() query:IQuery) {
+  public async index(@Query() query: IQuery) {
     return this.indexProduct.index(query);
   }
 
@@ -63,7 +63,10 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   @Put(':id')
-  public async update(@Param('id') param: string, @Body() product: UpdateProductDto) {
+  public async update(
+    @Param('id') param: string,
+    @Body() product: UpdateProductDto,
+  ) {
     return this.updateProduct.updateById(param, product);
   }
 

@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { User } from './user';
+import { UserIndex } from './user';
 import { IUserRepository } from './user.repository';
+import { IQuery } from '../../common/interfaces/query';
 
 const UserRepo = () => Inject('UserRepo');
 
@@ -8,7 +9,7 @@ const UserRepo = () => Inject('UserRepo');
 export class UserIndexService {
   constructor(@UserRepo() private readonly userRepository: IUserRepository) {}
 
-  public async index(): Promise<User[]> {
-    return await this.userRepository.UserIndex();
+  public async index(query: IQuery): Promise<UserIndex> {
+    return await this.userRepository.UserIndex(query);
   }
 }

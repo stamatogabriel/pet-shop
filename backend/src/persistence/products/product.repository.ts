@@ -14,7 +14,7 @@ export class ProductRepository implements IProductRepository {
   constructor(
     @InjectModel('Product')
     private readonly product: Model<IProductEntity>,
-  ) { }
+  ) {}
 
   public async ProductCreate(data: Product): Promise<Product> {
     try {
@@ -49,7 +49,6 @@ export class ProductRepository implements IProductRepository {
         };
       }
 
-
       if (query.description) {
         data = {
           ...data,
@@ -69,18 +68,15 @@ export class ProductRepository implements IProductRepository {
           },
         };
 
-      const products = await this.product
-        .find(data)
-        .skip(skip)
-        .limit(limit);
+      const products = await this.product.find(data).skip(skip).limit(limit);
 
-        const count = await this.product.countDocuments(data);
+      const count = await this.product.countDocuments(data);
 
       return {
         products,
         total_pages: Math.ceil(count / limit),
         current_page: page,
-      }
+      };
     } catch (error) {
       throw new HttpException(
         {
@@ -104,7 +100,10 @@ export class ProductRepository implements IProductRepository {
     }
   }
 
-  public async ProductUpdateById(id: string, data: Partial<Product>): Promise<Product> {
+  public async ProductUpdateById(
+    id: string,
+    data: Partial<Product>,
+  ): Promise<Product> {
     try {
       return await this.product.findByIdAndUpdate(id, data, { new: true });
     } catch (error) {

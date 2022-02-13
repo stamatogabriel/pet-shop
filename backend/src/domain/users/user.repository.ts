@@ -1,7 +1,8 @@
-import { User } from './user';
+import { User, UserIndex } from './user';
+import { IQuery } from '../../common/interfaces/query';
 
 export interface IUserRepository {
-  UserIndex(): Promise<User[]>;
+  UserIndex(query: IQuery): Promise<UserIndex>;
   UserCreate(createFields: User): Promise<User>;
   UserUpdateById(userId: string, updateFields: Partial<User>): Promise<User>;
   UserFindById(userId: string): Promise<User>;
