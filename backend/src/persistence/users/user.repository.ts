@@ -48,10 +48,10 @@ export class UserRepository implements IUserRepository {
         };
       }
 
-      if (query.type) {
+      if (query.roles) {
         data = {
           ...data,
-          type: query.type,
+          roles: query.roles,
         };
       }
 

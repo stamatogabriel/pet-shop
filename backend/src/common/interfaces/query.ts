@@ -11,4 +11,5 @@ export interface IQuery {
   startDate?: string;
   endDate?: string;
   tutor?: string;
+  roles?: string[] | string;
 }

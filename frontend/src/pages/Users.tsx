@@ -15,11 +15,11 @@ const Users: React.FC = () => {
   const { token } = useSelector((state: RootState) => state.auth);
 
   const getUsers = useCallback(async () => {
-    const response = await api.get("/users", {
+    const response = await api.get("/users?type=admin", {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    setUsers(response.data);
+    setUsers(response.data.users);
   }, [token]);
 
   const deleteUser = useCallback(
