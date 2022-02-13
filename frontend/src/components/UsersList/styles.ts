@@ -6,10 +6,24 @@ interface UserButtonProps {
 
 export const Container = styled.div`
   width: 100vw;
-  height: calc(100vh - 90px);
+  // height: calc(100vh - 90px);
   max-width: 1300px;
   margin: 90px auto 0;
   padding: 1rem;
+
+  @media only screen and (min-width: 600px) {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media only screen and (min-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media only screen and (min-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 
 export const RolesTag = styled.span`
@@ -29,18 +43,23 @@ export const UserCard = styled.div`
   margin: 1rem auto;
   border-radius: 0.5rem;
   box-shadow: 0px 19px 23px -5px rgba(0, 0, 0, 0.14);
+  width: 100%;
+
+  /* @media only screen and (min-width: 600px) {
+    max-width: 300px;
+  } */
 `;
 
 export const ButtonWrapper = styled.div`
   display: flex;
   width: 100%;
-  justify-content: space-between;
   align-items: center;
 `;
 
 export const UserButton = styled.button<UserButtonProps>`
   background: transparent;
   padding: 0.5rem;
+  margin-right: 1rem;
   border-radius: 8px;
   border: ${(props) =>
     props.isDelete ? "1px solid #c53030" : "1px solid #013b00"};

@@ -6,9 +6,10 @@ import { ButtonWrapper, Container, RolesTag, UserButton, UserCard } from "./styl
 interface UsersListProps {
   users: IUser[] | null;
   deleteUsers(id: string): void
+  editUser(user: IUser): void
 }
 
-const UsersList: React.FC<UsersListProps> = ({ users, deleteUsers }) => {
+const UsersList: React.FC<UsersListProps> = ({ users, deleteUsers, editUser }) => {
   return (
     <Container>
       {users &&
@@ -32,7 +33,7 @@ const UsersList: React.FC<UsersListProps> = ({ users, deleteUsers }) => {
               </p>
             </div>
             <ButtonWrapper>
-              <UserButton>Editar usuário</UserButton>
+              <UserButton onClick={() => editUser(item)}>Editar usuário</UserButton>
               <UserButton isDelete onClick={() => deleteUsers(item._id)}>Excluir usuário</UserButton>
             </ButtonWrapper>
           </UserCard>
