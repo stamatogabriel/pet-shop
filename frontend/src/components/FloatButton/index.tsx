@@ -1,9 +1,13 @@
-import React from 'react';
+import React from "react";
 
-// import { Container } from './styles';
+import { Button } from "./styles";
 
-const FloatButton: React.FC = () => {
-  return <div />;
+interface FloatButtonProps {
+  click(): void
 }
+
+const FloatButton: React.FC<FloatButtonProps> = ({ children, click }) => {
+  return <Button onClick={click}>{children}</Button>;
+};
 
 export default FloatButton;

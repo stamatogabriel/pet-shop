@@ -7,6 +7,9 @@ export const theme = {
       main: '#ff6600',
       dark: '#ff1100',
     },
+    success: {
+      dark: '#437D27'
+    },
     error: '#c53030',
     white: {
       main: '#fff',

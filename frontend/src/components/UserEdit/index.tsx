@@ -14,7 +14,7 @@ import { RootState } from "../../store/modules/rootReducer";
 import { toast } from "react-toastify";
 
 interface UserEditProps {
-  user: IUser;
+  user?: IUser;
   closeModal(): void;
   getUsers(): void;
 }
@@ -44,13 +44,35 @@ const UserEdit: React.FC<UserEditProps> = ({ user, closeModal, getUsers }) => {
           abortEarly: false,
         });
 
-        await api.put(
-          `/users/${user._id}`,
-          { ...data, roles: [data.roles] },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        if (user) {
+          await api.put(
+            `/users/${user._id}`,
+            { ...data, roles: [data.roles] },
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+        }
+
+        if (!user) {
+          const passSchema = Yup.object().shape({
+            password: Yup.string()
+              .min(6, 'Senha deve conter 6 dígitos')
+              .required("Informe a senha")
+          });
+
+          await passSchema.validate(data, {
+            abortEarly: false,
+          });
+
+          await api.post(
+            `/users`,
+            { ...data, roles: [data.roles] },
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+        }
 
         setLoading(false);
 
@@ -87,21 +109,23 @@ const UserEdit: React.FC<UserEditProps> = ({ user, closeModal, getUsers }) => {
           isPhone
           defaultValue={user?.phone}
         />
+        {!user && <Input name="password" placeholder="Senha do usuário" type="password" />}
         <Select
           name="roles"
           placeholder="Função"
-          defaultValue={user?.roles}
+          defaultValue={user?.roles[0]}
           options={[
             { label: "Usuário", value: "user" },
             { label: "Administrador", value: "admin" },
           ]}
         />
         <ButtonWrapper>
-
-        <UserButton type="submit" disabled={loading}>
-          {loading ? "Carregando" : "Salvar"}
-        </UserButton>
-        <UserButton type="button" isCancel onClick={closeModal}>Cancelar</UserButton>
+          <UserButton type="submit" disabled={loading}>
+            {loading ? "Carregando" : "Salvar"}
+          </UserButton>
+          <UserButton type="button" isCancel onClick={closeModal}>
+            Cancelar
+          </UserButton>
         </ButtonWrapper>
       </Form>
     </Container>
