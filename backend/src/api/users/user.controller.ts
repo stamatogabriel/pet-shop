@@ -35,7 +35,7 @@ export class UserController {
     private readonly findByIdUser: UserFindByIdService,
     private readonly updateUser: UpdateByIdService,
     private readonly destroyUser: UserDestroyService,
-  ) { }
+  ) {}
 
   @Post()
   public async create(@Body() user: CreateUserDTO) {

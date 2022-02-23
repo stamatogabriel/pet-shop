@@ -28,7 +28,6 @@ export class CreateUserDTO {
   @ApiProperty({ required: true })
   public readonly roles: Role[];
 
-
   @IsString()
   @ApiProperty({ required: true })
   public readonly password: string;
