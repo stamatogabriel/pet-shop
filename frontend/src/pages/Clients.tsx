@@ -13,12 +13,10 @@ import api from "../services/api";
 import { RootState } from "../store/modules/rootReducer";
 
 import { IUser } from "../types/user";
-import SwitchUsers from "../components/SwitchUsers";
 import Loading from "../components/Loading";
 
-const Users: React.FC = () => {
+const Clients: React.FC = () => {
   const [users, setUsers] = useState<IUser[] | null>(null);
-  const [userType, setUserType] = useState<"user" | "admin">("user");
   const [userEdit, setUserEdit] = useState<IUser | null>(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -27,7 +25,7 @@ const Users: React.FC = () => {
   const getUsers = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await api.get(`/users?roles=${userType}`, {
+      const response = await api.get(`/users?roles=client`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -37,7 +35,7 @@ const Users: React.FC = () => {
       setLoading(false);
       toast.error("Algo deu errado. Tente novamente mais tarde.");
     }
-  }, [token, userType]);
+  }, [token]);
 
   const deleteUser = useCallback(
     async (id: string) => {
@@ -82,10 +80,9 @@ const Users: React.FC = () => {
 
   return (
     <>
-      <SwitchUsers changeUserType={setUserType} userType={userType} />
       {loading && <Loading />}
       {!loading && (
-        <UsersList users={users} deleteUsers={deleteUser} editUser={editUser} />
+        <UsersList users={users} deleteUsers={deleteUser} editUser={editUser} isClients />
       )}
       <FloatButton click={handleNewUser}>
         <AiOutlinePlus size={30} />
@@ -95,10 +92,11 @@ const Users: React.FC = () => {
           user={userEdit}
           closeModal={handlecloseModal}
           getUsers={getUsers}
+          isClient
         />
       </Modal>
     </>
   );
 };
 
-export default Users;
+export default Clients;

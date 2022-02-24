@@ -41,6 +41,7 @@ const Menu: React.FC<IModalLessonProps> = ({ close, openMenu }) => {
         </Wrapper>
         <div>
           <Link to={'/users'}>Usuários</Link>
+          <Link to={'/clients'}>Clientes</Link>
         </div>
       </Container>
     </>

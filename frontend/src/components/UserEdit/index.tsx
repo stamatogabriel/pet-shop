@@ -17,12 +17,18 @@ interface UserEditProps {
   user?: IUser;
   closeModal(): void;
   getUsers(): void;
+  isClient?: boolean;
 }
 
-const UserEdit: React.FC<UserEditProps> = ({ user, closeModal, getUsers }) => {
+const UserEdit: React.FC<UserEditProps> = ({
+  user,
+  closeModal,
+  getUsers,
+  isClient,
+}) => {
   const [loading, setLoading] = useState<boolean>(false);
   const formRef = useRef<FormHandles | any>();
-
+  console.log(user)
   const { token } = useSelector((state: RootState) => state.auth);
 
   const handleEdit = useCallback(
@@ -30,6 +36,8 @@ const UserEdit: React.FC<UserEditProps> = ({ user, closeModal, getUsers }) => {
       setLoading(true);
       try {
         formRef.current?.setErrors({});
+
+        if (isClient) data.roles = 'client'
 
         const schema = Yup.object().shape({
           email: Yup.string()
@@ -57,8 +65,8 @@ const UserEdit: React.FC<UserEditProps> = ({ user, closeModal, getUsers }) => {
         if (!user) {
           const passSchema = Yup.object().shape({
             password: Yup.string()
-              .min(6, 'Senha deve conter 6 dígitos')
-              .required("Informe a senha")
+              .min(6, "Senha deve conter 6 dígitos")
+              .required("Informe a senha"),
           });
 
           await passSchema.validate(data, {
@@ -74,9 +82,8 @@ const UserEdit: React.FC<UserEditProps> = ({ user, closeModal, getUsers }) => {
           );
         }
 
-        setLoading(false);
-
         getUsers();
+        setLoading(false);
         closeModal();
         toast.success("Usuário salvo com sucesso");
       } catch (err) {
@@ -89,12 +96,12 @@ const UserEdit: React.FC<UserEditProps> = ({ user, closeModal, getUsers }) => {
         toast.error("Não foi possível salvar o usuário, tente novamente");
       }
     },
-    [closeModal, getUsers, token, user]
+    [closeModal, getUsers, isClient, token, user]
   );
 
   return (
     <Container>
-      <h1>Editando usuário </h1>
+      <h1>{!user ? 'Novo usuário' : 'Editando usuário'}</h1>
       <Form ref={formRef} onSubmit={handleEdit} autoComplete="false">
         <Input name="name" placeholder="Nome" defaultValue={user?.name} />
         <Input
@@ -109,16 +116,24 @@ const UserEdit: React.FC<UserEditProps> = ({ user, closeModal, getUsers }) => {
           isPhone
           defaultValue={user?.phone}
         />
-        {!user && <Input name="password" placeholder="Senha do usuário" type="password" />}
-        <Select
-          name="roles"
-          placeholder="Função"
-          defaultValue={user?.roles[0]}
-          options={[
-            { label: "Usuário", value: "user" },
-            { label: "Administrador", value: "admin" },
-          ]}
-        />
+        {!user && (
+          <Input
+            name="password"
+            placeholder="Senha do usuário"
+            type="password"
+          />
+        )}
+        {!isClient && (
+          <Select
+            name="roles"
+            placeholder="Função"
+            defaultValue={user?.roles[0]}
+            options={[
+              { label: "Usuário", value: "user" },
+              { label: "Administrador", value: "admin" },
+            ]}
+          />
+        )}
         <ButtonWrapper>
           <UserButton type="submit" disabled={loading}>
             {loading ? "Carregando" : "Salvar"}

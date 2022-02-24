@@ -3,8 +3,8 @@ import React from "react";
 import { Container, CustomButtom } from "./styles";
 
 interface StwitchUsersProps {
-  changeUserType(type: "user" | "admin" | "client"): void;
-  userType: "user" | "admin" | "client";
+  changeUserType(type: "user" | "admin"): void;
+  userType: "user" | "admin";
 }
 
 const SwitchUsers: React.FC<StwitchUsersProps> = ({
@@ -13,12 +13,6 @@ const SwitchUsers: React.FC<StwitchUsersProps> = ({
 }) => {
   return (
     <Container>
-      <CustomButtom
-        selected={userType === "client"}
-        onClick={() => changeUserType("client")}
-      >
-        Clientes
-      </CustomButtom>
       <CustomButtom
         selected={userType === "admin"}
         onClick={() => changeUserType("admin")}

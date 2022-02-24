@@ -4,16 +4,20 @@ interface UserButtonProps {
   isDelete?: boolean;
 }
 
+interface ContainerProps {
+  isClients?: boolean;
+}
+
 export const SwitchWrapper = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
-export const Container = styled.div`
+export const Container = styled.div<ContainerProps>`
   width: 100vw;
   // height: calc(100vh - 90px);
   max-width: 1300px;
-  margin: 0 auto;
+  margin: ${(props) => (props.isClients ? "90px auto 0" : "0 auto")};
   padding: 1rem;
 
   @media only screen and (min-width: 600px) {

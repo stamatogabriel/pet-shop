@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/modules/rootReducer";
 import { IUser } from "../../types/user";
@@ -15,51 +15,61 @@ interface UsersListProps {
   users: IUser[] | null;
   deleteUsers(id: string): void;
   editUser(user: IUser): void;
+  isClients?: boolean
 }
 
 const UsersList: React.FC<UsersListProps> = ({
   users,
   deleteUsers,
   editUser,
+  isClients
 }) => {
   const { profile } = useSelector((state: RootState) => state.user);
 
-  const renderCards = useCallback((item) => {
-    if (item._id !== profile._id)
-      return (
-        <UserCard key={item._id}>
-          <h3>{item.name}</h3>
-          <div>
-            <p>
-              <strong>E-mail: </strong>
-              {item.email}
-            </p>
-            <p>
-              <strong>Telefone: </strong>
-              {item.phone}
-            </p>
-            <p>
-              <strong>Permissões: </strong>
-              {item.roles.map((itm, idx) => (
-                <RolesTag key={idx}>{itm}</RolesTag>
-              ))}
-            </p>
-          </div>
-          <ButtonWrapper>
-            <UserButton onClick={() => editUser(item)}>
-              Editar usuário
-            </UserButton>
-            <UserButton isDelete onClick={() => deleteUsers(item._id)}>
-              Excluir usuário
-            </UserButton>
-          </ButtonWrapper>
-        </UserCard>
-      );
-  }, [deleteUsers, editUser, profile]);
-
-  return <Container>
-    {users && users.map((item) => renderCards(item))}
-    </Container>;
+  return (
+    <Container isClients={isClients}>
+      {users && !users.length && <h2>Não há dados para serem exibidos</h2>}
+      {users &&
+        users.map((item) => (
+          <UserCard key={item._id}>
+            <h3>{item.name}</h3>
+            <div>
+              <p>
+                <strong>E-mail: </strong>
+                {item.email}
+              </p>
+              <p>
+                <strong>Telefone: </strong>
+                {item.phone}
+              </p>
+              <p>
+                <strong>Permissões: </strong>
+                {Array.isArray(item.roles) && item.roles.map((itm: string, idx: number) => (
+                  <RolesTag key={idx}>{itm}</RolesTag>
+                ))}
+              </p>
+            </div>
+            {profile._id !== item._id && (
+              <ButtonWrapper>
+                <UserButton onClick={() => editUser(item)}>
+                  Editar usuário
+                </UserButton>
+                <UserButton isDelete onClick={() => deleteUsers(item._id)}>
+                  Excluir usuário
+                </UserButton>
+              </ButtonWrapper>
+            )}
+            {profile._id === item._id && (
+              <ButtonWrapper>
+                <UserButton>
+                  Ir para meus dados
+                </UserButton>
+              </ButtonWrapper>
+            )}
+          </UserCard>
+        ))}
+    </Container>
+  );
 };
 
 export default UsersList;
