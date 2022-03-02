@@ -1,15 +1,16 @@
-import styled, { css } from 'styled-components'
-import { theme } from '../../styles/global'
+import { Link } from "react-router-dom";
+import styled, { css } from "styled-components";
+import { theme } from "../../styles/global";
 
 interface CheckProps {
-  checked?: boolean
-  open?: boolean
+  checked?: boolean;
+  open?: boolean;
 }
 
 export const Modal = styled.div<CheckProps>`
   width: 100vw;
   height: 100vh;
-  z-index: 100;
+  z-index: 1000;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
@@ -19,12 +20,41 @@ export const Modal = styled.div<CheckProps>`
     css`
       display: none;
     `};
-`
+`;
+
+export const MenuItem = styled.button<CheckProps>`
+  border: none;
+  background: ${props => props.checked ? '#ff6600' : 'none'};
+  color: ${props => props.checked ? '#fff' : '#333'};
+  display: flex;
+  align-items: center;
+  margin: 0.1rem 0.5rem;
+  padding: 0.8rem 0.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background 1s, color 1s;
+
+  svg {
+    margin-right: 0.5rem;
+  }
+
+  &:hover {
+    background: #ff6600;
+    color: #fff;
+  }
+`;
+
+export const LinkWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 100%;
+`;
 
 export const Container = styled.div<CheckProps>`
   width: 100vw;
   height: 100vh;
-  z-index: 100;
+  z-index: 1000;
   background: #fff;
   max-width: 383px;
 
@@ -34,13 +64,13 @@ export const Container = styled.div<CheckProps>`
   // overflow: auto;
 
   transition: transform 0.5s ease-in-out;
-  transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
+  transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100%)")};
 
   hr {
     border: none;
     border-top: 1px solid #a7a7a7;
   }
-`
+`;
 
 export const Wrapper = styled.div`
   display: flex;
@@ -61,7 +91,7 @@ export const Wrapper = styled.div`
     font-size: 1rem;
     line-height: 1.75rem;
   }
-`
+`;
 
 export const ModalHeader = styled.div`
   width: 100%;
@@ -77,7 +107,7 @@ export const ModalHeader = styled.div`
     background: transparent;
     border: none;
   }
-`
+`;
 
 export const Avatar = styled.div`
   display: flex;
@@ -121,4 +151,4 @@ export const Avatar = styled.div`
       visibility: visible;
     }
   }
-`
+`;

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FormHandles } from "@unform/core";
 import { Form } from "@unform/web";
 import * as Yup from "yup";
@@ -28,8 +28,13 @@ const UserEdit: React.FC<UserEditProps> = ({
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const formRef = useRef<FormHandles | any>();
-  console.log(user)
   const { token } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    if (user) formRef.current?.setData(user);
+
+    if (!user) formRef.current.reset();
+  }, [user]);
 
   const handleEdit = useCallback(
     async (data: IUser) => {

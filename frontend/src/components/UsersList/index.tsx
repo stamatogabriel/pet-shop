@@ -15,14 +15,16 @@ interface UsersListProps {
   users: IUser[] | null;
   deleteUsers(id: string): void;
   editUser(user: IUser): void;
-  isClients?: boolean
+  editPet?(user: IUser): void
+  isClients?: boolean;
 }
 
 const UsersList: React.FC<UsersListProps> = ({
   users,
   deleteUsers,
   editUser,
-  isClients
+  editPet,
+  isClients,
 }) => {
   const { profile } = useSelector((state: RootState) => state.user);
 
@@ -42,15 +44,19 @@ const UsersList: React.FC<UsersListProps> = ({
                 <strong>Telefone: </strong>
                 {item.phone}
               </p>
-              <p>
-                <strong>Permissões: </strong>
-                {Array.isArray(item.roles) && item.roles.map((itm: string, idx: number) => (
-                  <RolesTag key={idx}>{itm}</RolesTag>
-                ))}
-              </p>
+              {!isClients && (
+                <p>
+                  <strong>Permissões: </strong>
+                  {Array.isArray(item.roles) &&
+                    item.roles.map((itm: string, idx: number) => (
+                      <RolesTag key={idx}>{itm}</RolesTag>
+                    ))}
+                </p>
+              )}
             </div>
             {profile._id !== item._id && (
               <ButtonWrapper>
+                {isClients && <UserButton onClick={() => editPet(item)}>Cadastrar Pet</UserButton>}
                 <UserButton onClick={() => editUser(item)}>
                   Editar usuário
                 </UserButton>
@@ -61,9 +67,7 @@ const UsersList: React.FC<UsersListProps> = ({
             )}
             {profile._id === item._id && (
               <ButtonWrapper>
-                <UserButton>
-                  Ir para meus dados
-                </UserButton>
+                <UserButton>Ir para meus dados</UserButton>
               </ButtonWrapper>
             )}
           </UserCard>

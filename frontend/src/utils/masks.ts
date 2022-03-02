@@ -1,44 +1,52 @@
 export const cpfMask = (value: string): string => {
   if (value)
     return value
-      .replace(/\D/g, '')
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d{1,2})/, '$1-$2')
-      .replace(/(-\d{2})\d+?$/, '$1')
+      .replace(/\D/g, "")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})/, "$1-$2")
+      .replace(/(-\d{2})\d+?$/, "$1");
 
-  return ''
-}
+  return "";
+};
+
+export const moneyMask = (value: string): string => {
+  //  if (value) return value.replace(/\D/g, "").replace(/\^R\$(\d{1,3})(\.\d{3})*|\d+)(,\d{2})?$/, "$1");
+
+  if (value) return value.replace(/\D/g, "");
+
+  return "";
+};
 
 export const cepMask = (value: string): string => {
   return value
-    .replace(/\D/g, '')
-    .replace(/(\d{2})(\d)/, '$1.$2')
-    .replace(/(\d{3})(\d)/, '$1-$2')
-    .replace(/(-\d{3})\d+?$/, '$1')
-}
+    .replace(/\D/g, "")
+    .replace(/(\d{2})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d)/, "$1-$2")
+    .replace(/(-\d{3})\d+?$/, "$1");
+};
 
 export const creditCard = (value: string): string => {
   return value
-    .replace(/\D/g, '')
-    .replace(/(\d{4})(\d)/, '$1 $2')
-    .replace(/(\d{4})(\d)/, '$1 $2')
-    .replace(/(\d{4})(\d)/, '$1 $2')
-    .replace(/(\d{4})(\d)/, '$1')
-}
+    .replace(/\D/g, "")
+    .replace(/(\d{4})(\d)/, "$1 $2")
+    .replace(/(\d{4})(\d)/, "$1 $2")
+    .replace(/(\d{4})(\d)/, "$1 $2")
+    .replace(/(\d{4})(\d)/, "$1");
+};
 
 export const creditCardDateMask = (value: string): string => {
   return value
-    .replace(/\D/g, '')
-    .replace(/(\d{2})(\d)/, '$1/$2')
-    .replace(/(\d{2})(\d)/, '$1')
-}
+    .replace(/\D/g, "")
+    .replace(/(\d{2})(\d)/, "$1/$2")
+    .replace(/(\d{2})(\d)/, "$1");
+};
 
 export const telMask = (value: string): string => {
   return value
-    .replace(/\D/g, '')
-    .replace(/^(\d{2})(\d)/g, '($1) $2')
-    .replace(/(\d{4})(\d)/, '$1-$2')
-    .replace(/(\d{4})-(\d)(\d{4})/, '$1$2-$3')
-    .replace(/(-\d{4})\d+?$/, '$1')
-}
+    .replace(/\D/g, "")
+    .replace(/^(\d{2})(\d)/g, "($1) $2")
+    .replace(/(\d{4})(\d)/, "$1-$2")
+    .replace(/(\d{4})-(\d)(\d{4})/, "$1$2-$3")
+    .replace(/(-\d{4})\d+?$/, "$1");
+};

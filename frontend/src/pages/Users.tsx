@@ -82,7 +82,7 @@ const Users: React.FC = () => {
 
   return (
     <>
-      <SwitchUsers changeUserType={setUserType} userType={userType} />
+      {!loading && <SwitchUsers changeUserType={setUserType} userType={userType} />}
       {loading && <Loading />}
       {!loading && (
         <UsersList users={users} deleteUsers={deleteUser} editUser={editUser} />

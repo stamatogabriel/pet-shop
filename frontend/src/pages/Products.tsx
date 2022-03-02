@@ -3,37 +3,33 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { AiOutlinePlus } from "react-icons/ai";
 
-import UsersList from "../components/UsersList";
-import Modal from "../components/Modal";
-import UserEdit from "../components/UserEdit";
 import FloatButton from "../components/FloatButton";
+import ProductsList from "../components/ProductsList";
+import ProductEdit from "../components/ProductEdit";
+import Modal from "../components/Modal";
 
 import api from "../services/api";
 
 import { RootState } from "../store/modules/rootReducer";
 
-import { IUser } from "../types/user";
+import { IProduct } from "../types/product";
 import Loading from "../components/Loading";
-import PetEdit from "../components/PetEdit";
-import { IPet } from "../types/pet";
 
-const Clients: React.FC = () => {
-  const [users, setUsers] = useState<IUser[] | null>(null);
-  const [userEdit, setUserEdit] = useState<IUser | null>(null);
-  const [petEdit, setPetEdit] = useState<IPet | null>(null);
+const Products: React.FC = () => {
+  const [products, setProducts] = useState<IProduct[] | null>(null);
+  const [productEdit, setProductEdit] = useState<IProduct | null>(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [openPetModal, setOpenPetModal] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const { token } = useSelector((state: RootState) => state.auth);
 
-  const getUsers = useCallback(async () => {
+  const getProducts = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await api.get(`/users?roles=client`, {
+      const response = await api.get(`/products`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      setUsers(response.data.users);
+      setProducts(response.data.products);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -44,11 +40,11 @@ const Clients: React.FC = () => {
   const deleteUser = useCallback(
     async (id: string) => {
       try {
-        await api.delete(`/users/${id}`, {
+        await api.delete(`/products/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        getUsers();
+        getProducts();
 
         return toast.success("Usuário deletado com sucesso");
       } catch (error) {
@@ -57,77 +53,49 @@ const Clients: React.FC = () => {
         );
       }
     },
-    [getUsers, token]
+    [getProducts, token]
   );
 
-  const editUser = useCallback(
-    async (user) => {
-      setUserEdit(user);
+  const editProduct = useCallback(
+    async (product) => {
+      setProductEdit(product);
       setOpenModal(true);
     },
-    [setOpenModal, setUserEdit]
-  );
-
-  const editPet = useCallback(
-    async (user) => {
-      setUserEdit(user);
-      setOpenPetModal(true);
-    },
-    [setOpenPetModal, setUserEdit]
+    [setOpenModal, setProductEdit]
   );
 
   const handleNewUser = useCallback(() => {
-    setUserEdit(null);
+    setProductEdit(null);
     setOpenModal(true);
   }, []);
 
   const handlecloseModal = useCallback(() => {
-    setUserEdit(null);
+    setProductEdit(null);
     setOpenModal(false);
   }, []);
 
-  const handleClosePetModal = useCallback(() => {
-    setUserEdit(null);
-    setOpenPetModal(false);
-  }, []);
-
   useEffect(() => {
-    getUsers();
-  }, [getUsers]);
+    getProducts();
+  }, [getProducts]);
 
   return (
     <>
       {loading && <Loading />}
       {!loading && (
-        <UsersList
-          users={users}
-          deleteUsers={deleteUser}
-          editUser={editUser}
-          editPet={editPet}
-          isClients
-        />
+        <ProductsList products={products} deleteProduct={deleteUser} editProduct={editProduct} />
       )}
       <FloatButton click={handleNewUser}>
         <AiOutlinePlus size={30} />
       </FloatButton>
       <Modal open={openModal} onClose={handlecloseModal}>
-        <UserEdit
-          user={userEdit}
+        <ProductEdit
+          product={productEdit}
           closeModal={handlecloseModal}
-          getUsers={getUsers}
-          isClient
-        />
-      </Modal>
-      <Modal open={openPetModal} onClose={handleClosePetModal}>
-        <PetEdit
-          tutorId={userEdit?._id}
-          pet={petEdit}
-          closeModal={handleClosePetModal}
-          getPets={getUsers}
+          getProducts={getProducts}
         />
       </Modal>
     </>
   );
 };
 
-export default Clients;
+export default Products;

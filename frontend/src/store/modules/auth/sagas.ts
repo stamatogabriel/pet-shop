@@ -1,11 +1,12 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects'
 import { signInSuccess, signFailure } from './actions'
-// import { Router } from 'react-router-dom'
 
 import api from '../../../services/api'
 
 import { SignInPayload, AuthTypes } from './types'
 import { Action } from 'redux'
+import { toast } from 'react-toastify'
+import history from '../../../services/history'
 
 interface SignInAction extends Action, SignInPayload {
   type: AuthTypes.SIGN_IN_REQUEST
@@ -25,6 +26,7 @@ export function* signIn(data: any): any {
   } catch (err) {
     console.log(err)
     yield put(signFailure())
+    toast.error('Não foi possível efetuar o login. Verifique suas credenciais')
   }
 }
 
@@ -35,7 +37,7 @@ export function setToken(payload: any): any {
 }
 
 export function signOut(): any {
-  // history.push('/')
+   history.push('/')
 }
 
 export default all([
