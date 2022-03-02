@@ -1,6 +1,6 @@
 // 01473230
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   FiX,
@@ -9,7 +9,8 @@ import {
   FiUser,
   FiGrid,
   FiUsers,
-  FiShoppingBag
+  FiShoppingBag,
+  FiDollarSign,
 } from "react-icons/fi";
 import { MdPets } from 'react-icons/md'
 
@@ -21,12 +22,14 @@ import {
   Avatar,
   LinkWrapper,
   MenuItem,
+  Logout,
 } from "./styles";
 import { RootState } from "../../store/modules/rootReducer";
 
 import UserAvatar from "../../assets/avatar.png";
 import { useCallback } from "react";
 import history from "../../services/history";
+import { signOut } from "../../store/modules/auth/actions";
 
 interface IModalLessonProps {
   close(): void;
@@ -35,6 +38,7 @@ interface IModalLessonProps {
 
 const Menu: React.FC<IModalLessonProps> = ({ close, openMenu }) => {
   const user = useSelector((state: RootState) => state.user.profile);
+  const dispatch = useDispatch()
 
   const location = useLocation();
 
@@ -84,7 +88,12 @@ const Menu: React.FC<IModalLessonProps> = ({ close, openMenu }) => {
             <FiShoppingBag size={20} />
             Produtos
           </MenuItem>
+          <MenuItem onClick={() => handleMenuItem("/sales")} checked={location.pathname === "/sales"}>
+            <FiDollarSign size={20} />
+            Vendas
+          </MenuItem>
         </LinkWrapper>
+        <Logout onClick={() => dispatch(signOut())}><FiLogOut /> Sair</Logout>
       </Container>
     </>
   );

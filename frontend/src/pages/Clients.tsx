@@ -69,11 +69,11 @@ const Clients: React.FC = () => {
   );
 
   const editPet = useCallback(
-    async (user) => {
-      setUserEdit(user);
+    async (pet) => {
+      setPetEdit(pet);
       setOpenPetModal(true);
     },
-    [setOpenPetModal, setUserEdit]
+    [setOpenPetModal]
   );
 
   const handleNewUser = useCallback(() => {

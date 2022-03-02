@@ -8,6 +8,7 @@ import Users from '../pages/Users'
 import Clients from '../pages/Clients';
 import Pets from '../pages/Pets';
 import Products from '../pages/Products';
+import Sales from '../pages/Sales';
 
 const routes: React.FC = () => (
   <Switch>
@@ -16,6 +17,7 @@ const routes: React.FC = () => (
     <Route exact path="/clients" isPrivate component={Clients} />
     <Route exact path="/pets" isPrivate component={Pets} />
     <Route exact path="/products" isPrivate component={Products} />
+    <Route exact path="/sales" isPrivate component={Sales} />
   </Switch>
 )
 

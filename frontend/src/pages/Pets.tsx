@@ -64,18 +64,13 @@ const Pets: React.FC = () => {
     [setOpenModal, setPetEdit]
   );
 
-  const handleNewPet = useCallback(() => {
-    setPetEdit(null);
-    setOpenModal(true);
-  }, []);
-
   useEffect(() => {
     getPets();
   }, [getPets]);
 
   return (
     <>
-      <PetsList deletePets={deletePet} editPet={editPet} pets={pets} />
+      {!loading && <PetsList deletePets={deletePet} editPet={editPet} pets={pets} />}
       <Modal open={openModal} onClose={handleCloseModal}>
         <PetEdit
           tutorId={petEdit?._id}

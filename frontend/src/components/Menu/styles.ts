@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { theme } from "../../styles/global";
 
@@ -56,12 +55,12 @@ export const Container = styled.div<CheckProps>`
   height: 100vh;
   z-index: 1000;
   background: #fff;
-  max-width: 383px;
+  max-width: 320px;
 
   position: fixed;
   top: 0;
 
-  // overflow: auto;
+  overflow: auto;
 
   transition: transform 0.5s ease-in-out;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100%)")};
@@ -82,14 +81,14 @@ export const Wrapper = styled.div`
 
   h3 {
     margin: 1rem auto 0.5rem;
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1rem;
+    line-height: 1.2rem;
   }
 
   a {
     margin: 0 auto;
-    font-size: 1rem;
-    line-height: 1.75rem;
+    font-size: 0.8rem;
+    line-height: 1rem;
   }
 `;
 
@@ -116,8 +115,8 @@ export const Avatar = styled.div`
 
   margin: 1rem auto;
 
-  width: 8rem;
-  height: 8rem;
+  width: 6rem;
+  height: 6rem;
 
   border: 5px solid ${theme.colors.secondary.main};
   border-radius: 50%;
@@ -152,3 +151,26 @@ export const Avatar = styled.div`
     }
   }
 `;
+
+export const Logout = styled.button`
+  background: none;
+  border: none;
+  margin: 2rem auto;
+  font-weight: bold;
+  font-size: 1.1rem;
+  line-height: 1.75rem;
+  color: #333;
+  transition: color 1s;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    margin-right: 0.5rem;
+  }
+
+  &:hover{
+    color: #ff6600;
+  }
+`
