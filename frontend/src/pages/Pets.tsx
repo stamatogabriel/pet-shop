@@ -22,8 +22,6 @@ const Pets: React.FC = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      console.log(response.data);
-
       setPets(response.data.pets);
       setLoading(false);
     } catch (error) {

@@ -5,7 +5,7 @@ import { useField } from '@unform/core'
 
 import { Container, Error } from './styles'
 
-interface IOptions {
+export interface IOptions {
   label: string
   value: string | number
 }

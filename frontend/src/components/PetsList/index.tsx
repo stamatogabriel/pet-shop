@@ -1,4 +1,5 @@
 import React from "react";
+import history from "../../services/history";
 import { IPet } from "../../types/pet";
 
 import { ButtonWrapper, Container, UserButton, UserCard } from "./styles";
@@ -29,6 +30,7 @@ const PetsList: React.FC<PetsListProps> = ({ pets, deletePets, editPet }) => {
               </p>
             </div>
             <ButtonWrapper>
+              <UserButton onClick={() => history.push(`/schedule/${item._id}`)}>Criar agendamento</UserButton>
               <UserButton onClick={() => editPet(item)}>Editar pet</UserButton>
               <UserButton isDelete onClick={() => deletePets(item._id)}>
                 Excluir pet
