@@ -6,18 +6,19 @@ const SaleRepo = () => Inject('SaleRepo');
 
 @Injectable()
 export class ScheduleCreateService {
-  constructor(@SaleRepo() private readonly saleRespository: ISaleRepository) { }
+  constructor(@SaleRepo() private readonly saleRespository: ISaleRepository) {}
 
   public async createSchedule(sale: SaleService): Promise<SaleService> {
     const now = new Date();
-    const schedule = new Date(sale.schedule)
+    const schedule = new Date(sale.schedule);
 
-    if (now.getMilliseconds() > schedule.getMilliseconds()) throw new HttpException(
-      {
-        message: 'schedule has passed',
-      },
-      HttpStatus.BAD_REQUEST,
-    );
+    if (now > schedule)
+      throw new HttpException(
+        {
+          message: 'schedule has passed',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
 
     return await this.saleRespository.ScheduleCreate(sale);
   }
