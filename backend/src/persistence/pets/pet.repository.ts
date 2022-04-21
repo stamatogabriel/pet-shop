@@ -14,7 +14,7 @@ export class PetRepository implements IPetRepository {
   constructor(
     @InjectModel('Pet')
     private readonly pet: Model<IPetEntity>,
-  ) { }
+  ) {}
 
   public async PetCreate(data: Pet): Promise<Pet> {
     try {
@@ -71,13 +71,13 @@ export class PetRepository implements IPetRepository {
         .limit(limit)
         .populate('tutor');
 
-        const count = await this.pet.countDocuments(data);
+      const count = await this.pet.countDocuments(data);
 
       return {
         pets,
         total_pages: Math.ceil(count / limit),
         current_page: page,
-      }
+      };
     } catch (error) {
       throw new HttpException(
         {
@@ -90,7 +90,7 @@ export class PetRepository implements IPetRepository {
 
   public async PetFindById(id: string): Promise<Pet> {
     try {
-      return await this.pet.findById(id);
+      return await this.pet.findById(id).populate('tutor');
     } catch (error) {
       throw new HttpException(
         {
