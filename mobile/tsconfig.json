@@ -1,0 +1,8 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": false,
+    "module": "ES2020",
+    "lib": ["ES2018"]
+  }
+}
